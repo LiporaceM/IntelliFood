@@ -34,6 +34,7 @@ cd .\matheusliporace\
 ## 5. Fazer Migrações do Banco de Dados
 Aplique as migrações do banco de dados para configurar o banco de dados inicial:
 ```
+python manage.py makemigrations
 python manage.py migrate
 ```
 ## 6. Colocar as APIs
