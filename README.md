@@ -26,12 +26,19 @@ Instale as dependências necessárias usando o pip:
 ```
 pip install django googletrans==4.0.0-rc1 requests
 ```
-## 4. Fazer Migrações do Banco de Dados
+## 4. Mudar o Diretório
+Mude para o Diretorio do Aplicativo
+```
+cd .\matheusliporace\
+```
+## 5. Fazer Migrações do Banco de Dados
 Aplique as migrações do banco de dados para configurar o banco de dados inicial:
 ```
 python manage.py migrate
 ```
-## 5. Rodar o Servidor de Desenvolvimento
+## 6. Colocar as APIs
+Substitua o valor das variaveis com o os IDs das APIs.
+## 7. Rodar o Servidor de Desenvolvimento
 Inicie o servidor de desenvolvimento para verificar se tudo está funcionando corretamente:
 ```
 python manage.py runserver
