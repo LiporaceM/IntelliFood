@@ -1,13 +1,12 @@
 # Guia de Configuração do Projeto
 
-Este guia descreve como configurar e rodar o projeto em um novo computador, assumindo que o projeto será importado pelo Git.
 
 ## 1. Clonar o Repositório
 
 Abra um terminal (ou prompt de comando) e clone o repositório do projeto:
 
 ```bash
-git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/LiporaceM/barbieri)
+git clone https://github.com/LiporaceM/barbieri.git
 cd barbieri
 ```
 ## 2. Crie o ambiente virtual
