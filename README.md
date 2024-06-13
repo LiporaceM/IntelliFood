@@ -12,7 +12,7 @@ cd barbieri
 ## 2. Crie o ambiente virtual
 ```
 Crie um ambiente virtual e ative-o:
-python -m venv venv
+python -m venv ianesteves
 ```
 ```
 # Ative o ambiente virtual
