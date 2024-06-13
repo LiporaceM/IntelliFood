@@ -1,0 +1,72 @@
+<!-- recipe_detail.html -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ recipe.name }} - Intelli Food</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FAF2E9;
+            color: #6B352B;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .recipe-image {
+            width: 300px; 
+            height: 300px; 
+            object-fit: cover; 
+            border-radius: 10px; 
+            display: block;
+            margin: 0 auto; 
+        }
+        h1 {
+            font-size: 48px;
+            color: #6B352B;
+        }
+        h2, p {
+            color: #6B352B;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #D66049;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #91291C;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ recipe.name }}</h1>
+        <img src="{{ recipe.image_url }}" alt="{{ recipe.name }}" class="recipe-image">
+        <h2>Ingredientes:</h2>
+        <ul>
+            {% for ingredient in recipe.ingredients %}
+                <li>{{ ingredient }}</li>
+            {% endfor %}
+        </ul>
+        <h2>Modo de Preparo:</h2>
+        <p>{{ recipe.instructions }}</p>
+        <h2>Tempo Estimado:</h2>
+        <p>{{ recipe.prep_time }} minutos</p>
+        <button class="button" onclick="window.history.back()">Voltar</button>
+    </div>
+</body>
+</html>

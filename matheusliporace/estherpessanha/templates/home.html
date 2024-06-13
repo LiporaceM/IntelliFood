@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Intelli Food</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FAF2E9;
+            color: #6B352B;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            max-width: 200px;
+        }
+        h1 {
+            font-size: 48px;
+            color: #6B352B;
+        }
+        p {
+            font-size: 18px;
+            margin: 20px auto;
+            width: 80%;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #D66049;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #91291C;
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+    <div class="container">
+        <img src="{% static 'image.png' %}" alt="Intelli Food Logo" class="logo">
+        <h1>Intelli Food</h1>
+        <p>Bem-vindo ao Intelli Food! Nosso site ajuda você a encontrar receitas deliciosas com os ingredientes que você tem em casa. Comece agora!</p>
+        <div class="buttons">
+            <a href="{% url 'search_recipes' %}" class="button">Pesquisar Receitas</a>
+        </div>
+    </div>
+</body>
+</html>

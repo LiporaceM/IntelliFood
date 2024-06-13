@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pesquisar Receitas - Intelli Food</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FAF2E9;
+            color: #6B352B;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        h1 {
+            font-size: 48px;
+            color: #6B352B;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label, input, button, select {
+            display: block;
+            margin: 10px auto;
+            font-size: 18px;
+        }
+        input, select {
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #91291C;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #D66049;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #91291C;
+        }
+        .response {
+            text-align: left;
+            width: 80%;
+            margin: 0 auto;
+            border-top: 2px solid #D66049;
+            padding-top: 20px;
+        }
+        .ingredient-list {
+            margin: 20px auto;
+            width: 80%;
+        }
+        .recipe {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .recipe img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+        .recipe-details {
+            display: flex;
+            flex-direction: column;
+        }
+        .recipe-details a {
+            margin-top: 10px;
+            background-color: #D66049;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+        .recipe-details a:hover {
+            background-color: #91291C;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pesquisar Receitas</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="ingredientes">Digite os ingredientes que você tem em casa:</label>
+            <div class="ingredient-list">
+                <input type="text" id="ingrediente" name="ingrediente">
+                <button type="button" onclick="addIngredient()">+</button>
+            </div>
+            <div id="ingredient-container">
+                {% for ingrediente in ingredientes %}
+                    <div>
+                        {{ ingrediente }}
+                        <input type="hidden" name="ingredientes" value="{{ ingrediente }}">
+                    </div>
+                {% endfor %}
+            </div>
+            <label for="tempo">Tempo de Preparo:</label>
+            <select id="tempo" name="tempo">
+                <option value="15" {% if tempo == "15" %}selected{% endif %}>Menos de 15 minutos</option>
+                <option value="30" {% if tempo == "30" %}selected{% endif %}>Menos de 30 minutos</option>
+                <option value="45" {% if tempo == "45" %}selected{% endif %}>Menos de 45 minutos</option>
+                <option value="60" {% if tempo == "60" %}selected{% endif %}>1 hora +</option>
+            </select>
+            <button type="submit">Buscar Receitas</button>
+        </form>
+        {% if recipes %}
+            <div class="response">
+                <h2>Receitas Encontradas:</h2>
+                <div>
+                    {% for recipe in recipes %}
+                        <div class="recipe">
+                            <img src="{{ recipe.image_url }}" alt="{{ recipe.name }}">
+                            <div class="recipe-details">
+                                <h3>{{ recipe.name }}</h3>
+                                <p>Tempo de preparo: {{ recipe.prep_time }} minutos</p>
+                                <a href="{% url 'recipe_detail' recipe.id %}">Saber Mais</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <script>
+        function addIngredient() {
+            const ingredienteInput = document.getElementById('ingrediente');
+            const ingredienteValue = ingredienteInput.value;
+            if (ingredienteValue) {
+                const container = document.getElementById('ingredient-container');
+                const ingredientDiv = document.createElement('div');
+                ingredientDiv.textContent = ingredienteValue;
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'ingredientes';
+                hiddenInput.value = ingredienteValue;
+                ingredientDiv.appendChild(hiddenInput);
+                container.appendChild(ingredientDiv);
+                ingredienteInput.value = '';
+            }
+        }
+    </script>
+</body>
+</html>
