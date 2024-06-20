@@ -17,9 +17,9 @@ python -m venv ianesteves
 ```
 # Ative o ambiente virtual
 # No Windows
-venv\Scripts\activate
+ianesteves\Scripts\activate
 # No macOS/Linux
-source venv/bin/activate
+source ianesteves/bin/activate
 ```
 ## 3. Instalar Dependências
 Instale as dependências necessárias usando o pip:
