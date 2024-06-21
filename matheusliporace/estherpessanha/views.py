@@ -2,10 +2,11 @@ from django.shortcuts import render
 import requests
 from django.http import HttpResponseNotFound
 from googletrans import Translator
+import os
 
 # Chave da API do Gemini
-API_KEY = ''
-API_URL = '' + API_KEY
+API_KEY = os.getenv('GEMINI_API_KEY')
+API_URL = 'https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText?key=' + API_KEY
 
 
 recipes_data = []
@@ -14,7 +15,7 @@ def home(request):
     return render(request, 'home.html')
 
 def search_recipes(request):
-    global recipes_data
+    global recipes_data  
     if request.method == 'POST':
         ingredientes = request.POST.getlist('ingredientes')
         tempo = request.POST.get('tempo')
@@ -48,13 +49,13 @@ def search_recipes(request):
                     
                     recipes_data.extend(parse_recipes_from_text(recipe_text))
 
-               
+            
                 translator = Translator()
                 for recipe in recipes_data:
                     recipe['name'] = translator.translate(recipe['name'], src='en', dest='pt').text
                     recipe['ingredients'] = [translator.translate(ingredient, src='en', dest='pt').text for ingredient in recipe['ingredients']]
                     recipe['instructions'] = translator.translate(recipe['instructions'], src='en', dest='pt').text
-                    recipe['image_url'] = search_image(recipe['name'])  
+                    recipe['image_url'] = search_image(recipe['name'])
         else:
             print("Erro na solicitação da API:", response.text)
 
@@ -63,48 +64,47 @@ def search_recipes(request):
 
 def parse_recipes_from_text(text):
     recipes = []
-    
+   
     recipe_parts = text.split('**Recipe:**')
     for part in recipe_parts[1:]:
-        
+       
         name = ""
         prep_time = ""
         ingredients = []
         instructions = []
 
-        
+
         lines = part.strip().split('\n')
         for i, line in enumerate(lines):
-            
+
             if i == 0:
                 name = line.strip().replace('**', '')
-            
+
             elif line.startswith('**Preparation time:**'):
                 prep_time = line.split('**Preparation time:**')[1].strip()
-           
+
             elif line.startswith('* '):
                 ingredients.append(line.strip().lstrip('* ').strip())
-           
+
             elif line.startswith('**Instructions:**'):
                 instructions = ' '.join(lines[i+1:]).replace('**Instructions:**', '').strip()
                 break
         
-       
+
         recipes.append({
             'name': name,
             'prep_time': prep_time,
             'ingredients': ingredients,
             'instructions': instructions,
             'id': len(recipes) + 1,
-            'image_url': 'https://via.placeholder.com/100'
+            'image_url': 'https://via.placeholder.com/100' 
         })
     
     return recipes
 
 def search_image(query):
-    # Chave da API do Google Custom Search e ID do mecanismo de pesquisa
-    API_KEY = ''
-    SEARCH_ENGINE_ID = ''
+    API_KEY = os.getenv('GOOGLE_CUSTOM_SEARCH_API_KEY')
+    SEARCH_ENGINE_ID = os.getenv('SEARCH_ENGINE_ID')
     search_url = f"https://www.googleapis.com/customsearch/v1?q={query}&cx={SEARCH_ENGINE_ID}&key={API_KEY}&searchType=image&num=1"
     
     response = requests.get(search_url)
@@ -120,5 +120,6 @@ def recipe_detail(request, recipe_id):
     global recipes_data
     recipe = next((r for r in recipes_data if r['id'] == recipe_id), None)
     if recipe is None:
+ 
         return HttpResponseNotFound("Recipe not found")
     return render(request, 'recipe_detail.html', {'recipe': recipe})

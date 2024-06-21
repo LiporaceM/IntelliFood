@@ -3,6 +3,15 @@
 import os
 from pathlib import Path
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+SEARCH_ENGINE_ID = os.getenv('SEARCH_ENGINE_ID')
+GOOGLE_CUSTOM_SEARCH_API_KEY = os.getenv('GOOGLE_CUSTOM_SEARCH_API_KEY')
+
 # Caminho base do projeto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
