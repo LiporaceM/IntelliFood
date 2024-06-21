@@ -51,6 +51,3 @@ python manage.py runserver
 ```
 ## 9. Acessar o Aplicativo
 Abra seu navegador e acesse http://127.0.0.1:8000/ para usar o aplicativo.
-```
-Com essas instruções, suas chaves de API estarão protegidas no arquivo `.env`, e você garantirá que todas as dependências necessárias estejam instaladas, incluindo o `python-dotenv` para carregar as variáveis de ambiente corretamente.
-```
