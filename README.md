@@ -1,5 +1,10 @@
 # Guia de Configuração do Projeto
 
+# Aplicativo Rodando
+
+
+https://github.com/LiporaceM/IntelliFood/assets/108703224/e25a4d5b-3bff-407c-8020-b7a1f91df87e
+
 
 ## 1. Clonar o Repositório
 
