@@ -6,7 +6,7 @@
 Abra um terminal (ou prompt de comando) e clone o repositório do projeto:
 
 ```bash
-git clone https://github.com/LiporaceM/barbieri.git](https://github.com/LiporaceM/IntelliFood
+git clone https://github.com/LiporaceM/IntelliFood
 cd IntelliFood
 ```
 ## 2. Crie o ambiente virtual
